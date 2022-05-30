@@ -15,13 +15,18 @@
         public DateTime DateLoad { get; set; }
 
         [StringLength(100)]
-        public string Filename { get; set; }
+        public string? Filename { get; set; }
 
         [Required]
         public bool IsCompleted { get; set; }
 
+        public string? Message { get; set; }
+
 
         public virtual User User { get; set; }
         public virtual Task Task { get; set; }
+
+
+        public virtual List<TaskWorkMessage> Messages { get; set; } = new List<TaskWorkMessage>();
     }
 }

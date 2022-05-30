@@ -16,6 +16,9 @@
 
         public string? About { get; set; }
 
+        [StringLength(100)]
+        public string? UserImage { get; set; }
+
 
         public virtual List<Work> Works { get; set; } = new List<Work>();
         public virtual List<Task> Tasks { get; set; } = new List<Task>();

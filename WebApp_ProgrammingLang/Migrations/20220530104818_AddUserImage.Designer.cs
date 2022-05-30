@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp_ProgrammingLang.Data;
 
@@ -11,9 +12,10 @@ using WebApp_ProgrammingLang.Data;
 namespace WebApp_ProgrammingLang.Migrations
 {
     [DbContext(typeof(ProgLangContext))]
-    partial class ProgLangContextModelSnapshot : ModelSnapshot
+    [Migration("20220530104818_AddUserImage")]
+    partial class AddUserImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,14 +263,12 @@ namespace WebApp_ProgrammingLang.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Filename")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TaskID")
                         .HasColumnType("int");
@@ -283,34 +283,6 @@ namespace WebApp_ProgrammingLang.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("TaskWorks");
-                });
-
-            modelBuilder.Entity("WebApp_ProgrammingLang.Models.TaskWorkMessage", b =>
-                {
-                    b.Property<int>("TaskWorkID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskWorkID"), 1L, 1);
-
-                    b.Property<DateTime>("DateMessage")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Filename")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TaskWorkID1")
-                        .HasColumnType("int");
-
-                    b.HasKey("TaskWorkID");
-
-                    b.HasIndex("TaskWorkID1");
-
-                    b.ToTable("TaskWorkMessage");
                 });
 
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.User", b =>
@@ -584,17 +556,6 @@ namespace WebApp_ProgrammingLang.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebApp_ProgrammingLang.Models.TaskWorkMessage", b =>
-                {
-                    b.HasOne("WebApp_ProgrammingLang.Models.TaskWork", "TaskWork")
-                        .WithMany("Messages")
-                        .HasForeignKey("TaskWorkID1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TaskWork");
-                });
-
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.Work", b =>
                 {
                     b.HasOne("WebApp_ProgrammingLang.Models.User", "User")
@@ -657,11 +618,6 @@ namespace WebApp_ProgrammingLang.Migrations
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.Task", b =>
                 {
                     b.Navigation("Works");
-                });
-
-            modelBuilder.Entity("WebApp_ProgrammingLang.Models.TaskWork", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.User", b =>
