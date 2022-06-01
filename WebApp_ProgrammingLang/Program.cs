@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApp_ProgrammingLang.Data;
@@ -13,9 +14,18 @@ builder.Services.AddDbContext<ProgLangContext>(options =>
 });
 builder.Services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<ProgLangContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = "authcookie";
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 6;
 
     options.SignIn.RequireConfirmedEmail = false;
@@ -37,6 +47,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -35,8 +35,15 @@
                         </li>
                     </ul>
                     <div class="ms-auto mt-3 mt-lg-1" style="font-family: 'Eco 2', sans-serif;">
-                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
-                        <a class="btn btn-primary" href="#">Регистрация</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link" href="#">@User.Identity.Name</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        }
                     </div>
                 </div>
             </div>

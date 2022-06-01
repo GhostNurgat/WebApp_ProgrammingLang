@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Вход в систему";
 }
+@model WebApp_ProgrammingLang.ViewModels.LoginViewModel
 
 <body class="overflow-auto" style="background-color: #9F3ED5;">
     <div class="pt-xl-5 pt-lg-2 pt-1">
@@ -8,7 +9,26 @@
             <div class="row justify-content-md-center">
                 <div class="card" style="width: 25em">
                     <div class="card-body">
-
+                        <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input type="email" asp-for="Email" class="form-control" placeholder="Ваш Email" />
+                                <span class="invalid-feedback" asp-validation-for="Email"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label"></label>
+                                <input type="password" asp-for="Password" class="form-control" />
+                                <span class="invalid-feedback" asp-validation-for="Password"></span>
+                            </div>
+                            <div class="input-group row">
+                                <label asp-for="RememberMe" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" asp-for="RememberMe" class="form-check" />
+                                </div>
+                            </div>
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <input type="submit" class="btn btn-primary" value="Войти" />
+                        </form>
                     </div>
                 </div>
             </div>
