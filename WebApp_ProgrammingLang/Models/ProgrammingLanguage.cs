@@ -1,6 +1,7 @@
 ﻿namespace WebApp_ProgrammingLang.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Text.Json.Serialization;
 
     public class ProgrammingLanguage
     {
@@ -12,8 +13,7 @@
         public string Title { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string Platform { get; set; }
+        public string? Platform { get; set; }
 
         [Required]
         public int TypeID { get; set; }
@@ -22,7 +22,7 @@
         public string? Logo { get; set; }
 
 
-        public ProgrammingLanguageType Type { get; set; }
+        public ProgrammingLanguageType? Type { get; set; }
 
         public virtual List<Task> Tasks { get; set; }
     }
