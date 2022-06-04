@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Views\User\" />
-    <Folder Include="wwwroot\images\logo\" />
   </ItemGroup>
 
 </Project>

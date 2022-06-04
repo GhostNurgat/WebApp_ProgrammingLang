@@ -1,30 +1,43 @@
 ﻿@{
     ViewData["Title"] = "Язык программирование";
 }
-@model IEnumerable<ProgrammingLanguage>
+@model WebApp_ProgrammingLang.ViewModels.LanguagesViewModel
 
 <div class="pt-md-4 pt-lg-2 pt-1">
     <div class="container-md">
         <div class="row justify-content-md-center">
             <div class="card border-dark border-3">
                 <div class="card-body">
-                    <div class="input-group" style="margin-bottom: 2ch;">
-                        <input type="search" class="form-control" placeholder="Поиск" />
-                        <button class="btn btn-outline-success">
-                            <img src="~icon/bootstrap-icons-1.8.3/search.svg" />
-                        </button>
-                    </div>
+                    <form method="get" asp-controller="Task" asp-action="Language" style="margin-bottom: 2ch;">
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="Поиск" name="searchLang" />
+                            <button type="submit" class="btn btn-outline-success">
+                                <img src="~/lib/bootstrap-icons-1.8.3/search.svg" />
+                            </button>
+                        </div>
+                    </form>
+                    <form method="get" class="row gy-3 gx-3 align-content-md-center" asp-controller="Task" asp-action="Language">
+                        <label class="col-form-label">Фильтрация по типу</label>
+                        <div class="col-sm-auto">
+                            <select class="form-select" asp-for="StringType" asp-items="@Model.Types">
+                                <option value="">Все</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-auto">
+                            <button type="submit" class="btn btn-primary">Применить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="row justify-content-md-center" style="margin-top: 2em;">
-            @foreach (var lang in Model)
+            @foreach (var lang in Model.Languages)
             {
                 <div class="col-sm-4" style="margin-bottom: 2em;">
                     <div class="card border-info border-2">
                         <div class="row g-md-0">
                             <div class="col-md-4">
-                                <img src="~images/logo/@lang.Logo" class="img-fluid rounded-start">
+                                <img src="~/images/logos/@lang.Logo" class="img-fluid rounded-start">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
