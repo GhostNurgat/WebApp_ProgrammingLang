@@ -19,7 +19,7 @@
                     <form method="get" class="row gy-3 gx-3 align-content-md-center" asp-controller="Task" asp-action="Language">
                         <label class="col-form-label">Фильтрация по типу</label>
                         <div class="col-sm-auto">
-                            <select class="form-select" asp-for="StringType" asp-items="@Model.Types">
+                            <select class="form-select" asp-for="StringType" asp-items="@Model.Types" name="typeString">
                                 <option value="">Все</option>
                             </select>
                         </div>
