@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Работы";
+}
+
+<div class="pt-md-5 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-start">
+            <form class="container-fluid">
+                <div class="row" style="margin-bottom: 1em;">
+                    <div class="input-group">
+                        <input type="search" class="form-control" placeholder="Поиск работ" />
+                        <button type="submit" class="btn btn-outline-success">
+                            <img src="~/lib/bootstrap-icons-1.8.3/search.svg" />
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 2em;">
+                    <div class="input-group">
+                        <select class="form-select">
+                            <option value="">Фильтрация по языку</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Применить</button>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                            <li><button type="submit" class="dropdown-item">Без сортировки по датам</button></li>
+                            <li><button type="submit" class="dropdown-item">По возрастанию</button></li>
+                            <li><button type="submit" class="dropdown-item">По убыванию</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
