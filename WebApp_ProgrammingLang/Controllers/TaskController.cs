@@ -40,6 +40,6 @@ namespace WebApp_ProgrammingLang.Controllers
             return View(languageVM);
         }
 
-
+        public IActionResult Index() => View();
     }
 }
