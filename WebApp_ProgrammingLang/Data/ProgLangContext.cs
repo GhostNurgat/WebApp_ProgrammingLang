@@ -22,10 +22,12 @@
         public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<TaskWork> TaskWorks { get; set; }
+        public DbSet<TaskWorkMessage> TaskMessages { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public DbSet<ProgrammingLanguageType> ProgrammingLanguageTypes { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<WorkComment> WorkComments { get; set; }
         public DbSet<WorkLike> WorkLikes { get; set; }
+        public DbSet<MentorBid> MentorBids { get; set; }
     }
 }
