@@ -13,14 +13,14 @@
                             <div class="mb-3">
                                 <label asp-for="Email" class="form-label"></label>
                                 <input type="email" asp-for="Email" class="form-control" placeholder="Ваш Email" />
-                                <span class="invalid-feedback" asp-validation-for="Email"></span>
+                                <span class="text-danger" asp-validation-for="Email"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Password" class="form-label"></label>
                                 <input type="password" asp-for="Password" class="form-control" />
-                                <span class="invalid-feedback" asp-validation-for="Password"></span>
+                                <span class="text-danger" asp-validation-for="Password"></span>
                             </div>
-                            <div class="input-group row">
+                            <div class="row">
                                 <label asp-for="RememberMe" class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <input type="checkbox" asp-for="RememberMe" class="form-check" />
@@ -34,4 +34,10 @@
             </div>
         </div>
     </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </body>
