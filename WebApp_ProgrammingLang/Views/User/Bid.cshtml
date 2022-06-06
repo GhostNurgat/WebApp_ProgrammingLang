@@ -1,0 +1,22 @@
+﻿
+
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalDialog" style="font-family: 'Comfortaa', cursive;">Заявка</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <p class="mb-2" style="font-family: 'Eco 2', sans-serif;">Для отправки заявки, нужно сначало <a asp-area="" asp-controller="Account" asp-action="Login">войти</a> в Систему.</p>
+            }
+        </div>
+        <div class="modal-footer">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            }
+        </div>
+    </div>
+</div>
