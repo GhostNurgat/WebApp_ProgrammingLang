@@ -1,0 +1,28 @@
+﻿@model WebApp_ProgrammingLang.Models.User
+
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+        <div class="pt-md-5 pt-4" style="font-family: 'Eco 2', sans-serif;">
+            <h3 class="h1 display-1" style="font-family: 'Comfortaa', cursive;">
+                @if (Model.Surname == null && Model.Name == null)
+                {
+                    <partial>Фамилия Имя не заданы</partial>
+                }
+                else
+                {
+                    <partial>@Model.Surname @Model.Name</partial>
+                }
+            </h3>
+            <p class="mb-4"><strong>Дата рождения:</strong> @Model.BirthDate</p>
+            <h4 class="h3">О себе</h4>
+            @if (Model.About == null)
+            {
+                <p class="mb-4 text-muted">Нет описании</p>
+            }
+            else
+            {
+                <p class="mb-4">@Model.About</p>
+            }
+        </div>
+    </div>
+</div>

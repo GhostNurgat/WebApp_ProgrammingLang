@@ -9,14 +9,14 @@
 
         public int UserID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Это поле обязательно!")]
         [StringLength(50)]
         public string? Languages { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Это поле обязательно!")]
         public string? Description { get; set; }
 
 
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

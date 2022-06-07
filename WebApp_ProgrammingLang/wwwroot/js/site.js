@@ -13,3 +13,14 @@ $(function () {
         })
     })
 })
+
+$(function () {
+    $.ajaxSetup({ cache: true });
+    $('#infoLink').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#profile').html(data);
+            $('#infoLink').addClass = ".active";
+        })
+    })
+})

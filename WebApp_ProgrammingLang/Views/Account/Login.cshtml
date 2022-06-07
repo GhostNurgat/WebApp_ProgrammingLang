@@ -11,9 +11,9 @@
                     <div class="card-body">
                         <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
                             <div class="mb-3">
-                                <label asp-for="Email" class="form-label"></label>
-                                <input type="email" asp-for="Email" class="form-control" placeholder="Ваш Email" />
-                                <span class="text-danger" asp-validation-for="Email"></span>
+                                <label asp-for="UserName" class="form-label"></label>
+                                <input type="text" asp-for="UserName" class="form-control" placeholder="Ваш Имя пользователя" />
+                                <span class="text-danger" asp-validation-for="UserName"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Password" class="form-label"></label>

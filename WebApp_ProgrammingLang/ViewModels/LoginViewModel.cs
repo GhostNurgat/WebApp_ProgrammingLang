@@ -4,10 +4,9 @@
 
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Email обязательно")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Не соотвествует адресу электронной почты!")]
-        [Display(Name = "Email")]
-        public string? Email { get; set; }
+        [Required(ErrorMessage = "Имя пользователя обязательно")]
+        [Display(Name = "Имя пользователя")]
+        public string? UserName { get; set; }
 
         [Required(ErrorMessage = "Пароль обязательно")]
         [DataType(DataType.Password)]
@@ -17,6 +16,6 @@
         [Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }
 
-        public string ReturnUrl { get; set; }
+        public string? ReturnUrl { get; set; }
     }
 }

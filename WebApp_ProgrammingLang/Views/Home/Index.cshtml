@@ -2,8 +2,10 @@
     ViewData["Title"] = "Главная страница";
 }
 
-<body class="overflow-auto" style="background-color: #560EAD;">
-    <div class="pt-xxl-5 pt-lg-5 pt-5">
+@if (!User.Identity.IsAuthenticated)
+{
+    <body class="overflow-auto" style="background-color: #560EAD;">
+        <div class="pt-xxl-5 pt-lg-5 pt-5">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="mb-4 text-md-center px-md-4 px-lg-5">
@@ -18,4 +20,17 @@
                 </div>
             </div>
         </div>
-</body>
+    </body>
+}
+else
+{
+    <div class="pt-xxl-5 pt-lg-5 pt-5">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="mb-4 text-md-center px-md-4 px-lg-5">
+                    <h1 class="display-2 fw-bold text-black lh-sm" style="font-family: 'Comfortaa', cursive">С возращением, @User.Identity.Name</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
