@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Мой профиль";
+    ViewData["Title"] = "Редактирование пользователя";
 }
 @model WebApp_ProgrammingLang.Models.User
 
@@ -9,11 +9,11 @@
             <div class="mb-2 text-md-center">
                 @if (Model.UserImage == null)
                 {
-                    <img src="~/images/avatars/account_avatar.png" class="rounded-circle" style="width: 100px; height: 100px;">
+                    <img src="~/images/avatars/account_avatar.png" class="rounded-circle">
                 }
                 else
                 {
-                    <img src="~/images/avatars/users/@Model.UserImage" class="rounded-circle" style="width: 100px; height: 100px">
+                    <img src="~/images/avatars/users/@Model.UserImage" class="rounded-circle">
                 }
                 <h5 class="h1" style="font-family: 'Comfortaa', cursive;">@Model.UserName</h5>
             </div>
@@ -26,23 +26,23 @@
                 </nav>
             </div>
         </div>
-        <div class="row justify-content-md-center">
-            <ul class="nav nav-tabs nav-fill">
-                <li class="nav-item">
-                    <a class="nav-link" id="infoLink" asp-area="" asp-controller="User" asp-action="Info" asp-route-id="@Model.Id">Основная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Работы</a>
-                </li>
-            </ul>
-        </div>
     </div>
-</div>
 
-<div class="container-md">
-    <div class="row justify-content-md-center" style="margin-bottom: 2em;">
-        <div class="col-12 col-lg-10">
-            <main id="profile"></main>
+    <div class="row justify-content-md-center">
+        <div class="pt-md-5 pt-lg-4 pt-2">
+            <div class="card border-primary mb-5">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" id="editInfo" asp-area="" asp-controller="User" asp-action="EditInfo" asp-route-id="@Model.Id">Основная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="editImage">Картинка профиля</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" id="cardBody"></div>
+            </div>
         </div>
     </div>
 </div>

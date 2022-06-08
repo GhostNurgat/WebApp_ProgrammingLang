@@ -24,3 +24,23 @@ $(function () {
         })
     })
 })
+
+$(function () {
+    $.ajaxSetup({ cache: true });
+    $('#editInfo').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#cardBody').html(data);
+        })
+    })
+})
+
+$(function () {
+    $.ajaxSetup({ cache: true });
+    $('#editImage').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#cardBody').html(data);
+        })
+    })
+})

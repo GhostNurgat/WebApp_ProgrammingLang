@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp_ProgrammingLang.Controllers
 {
@@ -16,6 +17,9 @@ namespace WebApp_ProgrammingLang.Controllers
             _context = context;
         }
 
+        private bool UserExists(int id) =>
+            _context.Users.Any(u => u.Id == id);
+
         public IActionResult MyProfile(string userName)
         {
             User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
@@ -31,7 +35,90 @@ namespace WebApp_ProgrammingLang.Controllers
             User user = await _context.Users.FindAsync(id);
 
             if (user == null)
-                return BadRequest();
+                return NotFound();
+
+            return PartialView(user);
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            User user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
+        }
+
+        public async Task<IActionResult> EditInfo(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+                return NotFound();
+
+            return PartialView(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditInfo(int id, [Bind("Id,Surname,Name,BirthDate,About")] User user)
+        {
+            if (id != user.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Entry(user).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+
+                return RedirectToAction("MyProfile", "User", user.UserName);
+            }
+
+            return PartialView(user);
+        }
+
+        public async Task<IActionResult> EditImage(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+                return NotFound();
+
+            return PartialView(user);
+        }
+
+        public async Task<IActionResult> EditImage(User user, int id)
+        {
+            if (user.Id != id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Entry(user).State = EntityState.Modified;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+
+                return RedirectToAction("MyProfile", "User", user.UserName);
+            }
 
             return PartialView(user);
         }
