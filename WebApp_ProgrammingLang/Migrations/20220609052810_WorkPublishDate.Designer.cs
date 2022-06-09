@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp_ProgrammingLang.Data;
 
@@ -11,9 +12,10 @@ using WebApp_ProgrammingLang.Data;
 namespace WebApp_ProgrammingLang.Migrations
 {
     [DbContext(typeof(ProgLangContext))]
-    partial class ProgLangContextModelSnapshot : ModelSnapshot
+    [Migration("20220609052810_WorkPublishDate")]
+    partial class WorkPublishDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,12 +445,6 @@ namespace WebApp_ProgrammingLang.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LanguageID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProgrammingLanguageID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
@@ -461,8 +457,6 @@ namespace WebApp_ProgrammingLang.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ProgrammingLanguageID");
 
                     b.HasIndex("UserID");
 
@@ -648,19 +642,11 @@ namespace WebApp_ProgrammingLang.Migrations
 
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.Work", b =>
                 {
-                    b.HasOne("WebApp_ProgrammingLang.Models.ProgrammingLanguage", "ProgrammingLanguage")
-                        .WithMany("Works")
-                        .HasForeignKey("ProgrammingLanguageID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApp_ProgrammingLang.Models.User", "User")
                         .WithMany("Works")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ProgrammingLanguage");
 
                     b.Navigation("User");
                 });
@@ -706,8 +692,6 @@ namespace WebApp_ProgrammingLang.Migrations
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.ProgrammingLanguage", b =>
                 {
                     b.Navigation("Tasks");
-
-                    b.Navigation("Works");
                 });
 
             modelBuilder.Entity("WebApp_ProgrammingLang.Models.ProgrammingLanguageType", b =>

@@ -24,6 +24,8 @@
 
         public ProgrammingLanguageType? Type { get; set; }
 
-        public virtual List<Task> Tasks { get; set; }
+        public virtual List<Task> Tasks { get; set; } = new List<Task>();
+
+        public virtual List<Work> Works { get; set; } = new List<Work>();
     }
 }
