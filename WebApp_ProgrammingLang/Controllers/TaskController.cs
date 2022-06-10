@@ -40,7 +40,7 @@ namespace WebApp_ProgrammingLang.Controllers
             return View(languageVM);
         }
 
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? id, string searchTask)
         {
             if (id == null)
                 return NotFound();
@@ -53,7 +53,16 @@ namespace WebApp_ProgrammingLang.Controllers
                 .Include(t => t.User)
                 .Include(t => t.ProgrammingLanguage).ToListAsync();
 
-            return View(tasks);
+            if (!string.IsNullOrEmpty(searchTask))
+                tasks = tasks.Where(t => t.Title == searchTask).ToList();
+
+            var taskVM = new TaskViewModel
+            {
+                Tasks = tasks,
+                LangID = lang.ID,
+            };
+
+            return View(taskVM);
         }
     }
 }
