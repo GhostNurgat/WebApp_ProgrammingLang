@@ -1,0 +1,17 @@
+﻿@model WebApp_ProgrammingLang.Models.Work
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modDeleteDialog" style="font-family: 'Comfortaa', cursive;">Удаление работы</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body" style="font-family: 'Eco 2', sans-serif;">
+        <p class="mb-3 text-md-start">
+            Вы уверены, что вы хотите удалить работу "@Model.Title"?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-danger" asp-area="" asp-controller="Works" asp-action="DeleteConfirmed" asp-route-id="@Model.ID">Да</a>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Нет</button>
+    </div>
+</div>

@@ -44,3 +44,13 @@ $(function () {
         })
     })
 })
+
+$(function () {
+    $('#deleteLink').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#modContent').html(data);
+            $('#modDeleteDialog').modal('show');
+        })
+    })
+})
