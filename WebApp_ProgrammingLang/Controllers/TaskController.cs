@@ -40,6 +40,20 @@ namespace WebApp_ProgrammingLang.Controllers
             return View(languageVM);
         }
 
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var lang = await _context.ProgrammingLanguages.FindAsync(id);
+            if (lang == null)
+                return BadRequest();
+
+            var tasks = await _context.Tasks.Where(t => t.LanguageID == lang.ID)
+                .Include(t => t.User)
+                .Include(t => t.ProgrammingLanguage).ToListAsync();
+
+            return View(tasks);
+        }
     }
 }
