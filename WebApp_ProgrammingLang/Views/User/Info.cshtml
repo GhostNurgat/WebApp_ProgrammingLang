@@ -13,7 +13,14 @@
                     <partial>@Model.Surname @Model.Name</partial>
                 }
             </h3>
-            <p class="mb-4"><strong>Дата рождения:</strong> @Model.BirthDate</p>
+            @if (@Model.BirthDate.Year == 0001)
+            {
+                <p class="mb-4"><strong>Дата рождения:</strong> Не задано</p>
+            }
+            else
+            {
+                <p class="mb-4"><strong>Дата рождения:</strong> @Model.BirthDate</p>
+            }
             <h4 class="h3">О себе</h4>
             @if (Model.About == null)
             {

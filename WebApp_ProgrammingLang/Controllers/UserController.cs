@@ -72,6 +72,7 @@ namespace WebApp_ProgrammingLang.Controllers
                 {
                     _context.Entry(user).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("MyProfile", "User", user.UserName);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -80,8 +81,6 @@ namespace WebApp_ProgrammingLang.Controllers
                     else
                         throw;
                 }
-
-                return RedirectToAction("MyProfile", "User", user.UserName);
             }
 
             return PartialView(user);
@@ -123,17 +122,22 @@ namespace WebApp_ProgrammingLang.Controllers
             return PartialView(user);
         }
 
-        public IActionResult Bid() => PartialView();
+        public IActionResult Bid(string userName)
+        {
+            User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            ViewBag.User = user.Id;
+            return PartialView();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Bid(MentorBid newBid, string userName)
         {
+            User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            newBid.UserID = user.Id;
+
             if (ModelState.IsValid)
             {
-                User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-                newBid.UserID = user.Id;
-
                 await _context.MentorBids.AddAsync(newBid);
                 await _context.SaveChangesAsync();
 

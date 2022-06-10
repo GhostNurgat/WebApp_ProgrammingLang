@@ -38,7 +38,7 @@
             }
             else
             {
-                <form method="post" asp-controller="User" asp-action="Bid">
+                <form method="post" asp-controller="User" asp-action="Bid" asp-route-userName="@ViewBag.User">
                     <button type="submit" class="btn btn-primary">Отправить</button>
                 </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
