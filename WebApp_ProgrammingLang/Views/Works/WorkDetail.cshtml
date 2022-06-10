@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = $"{ViewBag.Title}";
+}
+@model WebApp_ProgrammingLang.Models.Work
+
+<div class="pt-md-5 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row">
+            <div class="p-md-3 p-0 text-md-center">
+                @if (Model.User.UserImage == null)
+                {
+                    <img src="~/images/avatars/account_avatar.png" class="rounded-1 display-1 rounded-circle">
+                }
+                else
+                {
+                    <img src="~/images/avatars/users/@Model.User.UserImage" class="rounded-1 display-1 rounded-circle">
+                }
+                <h4 class="h2 display-1" style="font-family: 'Comfortaa', cursive; font-size: 5ch">@Model.User.UserName</h4>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="p-md-4 p-sm-1 p-1">
+                <div class="card border-info border-4">
+                    <div class="card-header bg-dark">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h5 class="h2 text-white" style="font-family: 'Comfortaa', cursive;">@Model.Title</h5>
+                            </div>
+                            <div class="col-sm-4 align-content-end">
+                                @if (Model.User.UserName == User.Identity.Name)
+                                {
+                                    <a class="btn btn-primary" asp-area="" asp-controller="Works" asp-action="Edit" asp-route-id="@Model.ID">Редактировать</a>
+                                    <a class="btn btn-danger" href="#">Удалить</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <h6 class="card-subtitle" style="font-family: 'Comfortaa', cursive;">Дата публикации: @Model.PublishDate; Язык: @Model.ProgrammingLanguage.Title</h6>
+                        @if (Model.Description != null)
+                        {
+                            <p class="mb-3">@Model.Description</p>
+                        }
+                        else
+                        {
+                            <p class="mb-3 text-muted">Нет описании</p>
+                        }
+                        <div class="card-text bg-black rounded-3">
+                            <code>@Model.Code</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

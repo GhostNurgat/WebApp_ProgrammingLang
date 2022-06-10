@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Редактировать работу";
+}
+@model WebApp_ProgrammingLang.Models.Work
+
+<div class="pt-md-5 pt-lg-3 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-center">
+            <div class="card border-primary border-3">
+                <h5 class="card-header bg-primary text-white" style="font-family: 'Comfortaa', cursive;">Редактировать работу</h5>
+                <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                    <form method="post" asp-antiforgery="true" asp-controller="Works" asp-action="Edit" asp-route-id="@Model.ID">
+                        <span class="text-danger" asp-validation-for="Title"></span>
+                        <div class="input-group-lg" style="margin-bottom: 2ch; margin-top: 2ch;">
+                            <span class="input-group-text">Название</span>
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ProgrammingLanguageID"></span>
+                        <div class="input-group" style="margin-bottom: 2ch;">
+                            <span class="input-group-text">Язык программирование</span>
+                            <select class="form-select" asp-for="ProgrammingLanguageID" asp-items="@ViewBag.Lang"></select>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 2ch;">
+                            <span class="input-group-text">Описание</span>
+                            <textarea class="form-control" style="height: 150px;" asp-for="Description"></textarea>
+                        </div>
+                        <span class="text-danger" asp-validation-for="Code"></span>
+                        <div class="input-group-lg" style="margin-bottom: 2ch;">
+                            <span class="input-group-text">Код</span>
+                            <textarea class="form-control" asp-for="Code" style="font-family: Consolas; height: 350px;"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Добавить" />
+                        <a class="btn btn-secondary" asp-area="" asp-controller="Works" asp-action="WorkDetail" asp-route-id="@Model.ID">Отмена</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
