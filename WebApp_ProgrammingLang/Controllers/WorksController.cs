@@ -23,11 +23,11 @@ namespace WebApp_ProgrammingLang.Controllers
 
         public async Task<IActionResult> Index(string searchWork, string language, int index)
         {
+            IQueryable<string> langQuery = _context.ProgrammingLanguages.Select(l => l.Title);
+
             var works = await _context.Works
                 .Include(w => w.User)
                 .Include(w => w.ProgrammingLanguage).ToListAsync();
-
-            IQueryable<string> langQuery = _context.ProgrammingLanguages.Select(l => l.Title);
 
             if (!string.IsNullOrEmpty(searchWork))
                 works = works.Where(w => w.Title.Contains(searchWork)).ToList();
@@ -61,6 +61,7 @@ namespace WebApp_ProgrammingLang.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             ViewBag.Work = new SelectList(await _context.ProgrammingLanguages.ToListAsync(), "ID", "Title");

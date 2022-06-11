@@ -1,0 +1,43 @@
+﻿@model WebApp_ProgrammingLang.ViewModels.TaskViewModel
+
+<form method="get" asp-controller="Mentors" asp-action="TaskList" asp-route-userName="@User.Identity.Name">
+    <div class="row" style="margin-bottom: 1em;">
+        <div class="input-group">
+            <input type="search" asp-for="SearchTask" class="form-control" placeholder="Поиск задании" name="searchTask" />
+            <button type="submit" class="btn btn-outline-success">
+                <img src="~/lib/bootstrap-icons-1.8.3/search.svg" />
+            </button>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 2em;">
+        <div class="input-group">
+            <select class="form-select" asp-for="Language" asp-items="@Model.Languages">
+                <option value="">Языки программировании</option>
+            </select>
+            <button type="submit" class="btn btn-outline-secondary">Применить</button>
+        </div>
+    </div>
+</form>
+
+<div class="row justify-content-md-start" style="margin-bottom: 2em;">
+    <a class="btn btn-primary" href="#">Добавить новое задание</a>
+</div>
+
+<div class="row justify-content-md-center">
+    @foreach (var t in Model.Tasks)
+    {
+        <div class="card border-primary border-3" style="margin-bottom: 2em;">
+            <div class="card-header bg-primary text-white">
+                <h5 class="h3" style="font-family: 'Comfortaa', cursive;">@t.Title</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Автор: @t.User.UserName</h5>
+                <h6 class="card-subtitle" style="font-family: 'Comfortaa', cursive;">Дата: @t.DatePublish</h6>
+                <p class="card-text mb-1">Язык: @t.ProgrammingLanguage.Title</p>
+                <a class="btn btn-primary" href="#">Подробно</a>
+                <a class="btn btnalert-primary" href="#">Редактировать</a>
+                <a class="btn btnbtn-outline-danger" href="#">Удалить</a>
+            </div>
+        </div>
+    }
+</div>

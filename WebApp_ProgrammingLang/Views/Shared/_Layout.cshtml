@@ -38,7 +38,7 @@
                         <li class="nav-item">
                             @if (User.IsInRole("Преподаватель-редактор") || User.IsInRole("Преподаватель-консультант"))
                             {
-                                <a class="nav-link text-white" href="#">Преподавателю</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Mentors" asp-action="Index">Преподавателю</a>
                             }
                             else
                             {

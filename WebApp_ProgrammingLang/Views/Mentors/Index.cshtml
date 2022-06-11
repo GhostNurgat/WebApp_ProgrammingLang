@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Преподавателю";
+}
+
+<div class="pt-md-5 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row">
+
+            <div class="col-md-3" style="margin-bottom: 2em;">
+                <div class="card bg-dark border-primary border-3 sticky-md-top">
+                    <div class="card-body">
+                        <ul class="nav nav-pills flex-column justify-content-md-center">
+                            <li class="nav-item">
+                                <a class="nav-link" id="taskList" asp-area="" asp-controller="Mentors" asp-action="TaskList" asp-route-userName="@User.Identity.Name">Мои работы</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Несовершённые работы</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="container-fluid" id="page"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
