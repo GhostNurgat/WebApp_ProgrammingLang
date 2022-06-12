@@ -19,7 +19,7 @@
             </div>
             <div class="mb-2 text-md-center">
                 <nav class="nav flex-column">
-                    <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="MyProfile" asp-route-userName="@User.Identity.Name">Информация</a>
+                    <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@User.Identity.Name">Информация</a>
                     <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="Update" asp-route-id="@Model.Id">Редактировать</a>
                     <a class="btn btn-outline-primary" style="margin: 10px;" href="#">Задании</a>
                     <a class="btn btn-outline-danger" style="margin: 10px;" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
@@ -34,7 +34,7 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" id="editInfo" asp-area="" asp-controller="User" asp-action="EditInfo" asp-route-id="@Model.Id">Основная</a>
+                            <a class="nav-link" id="editInfo" asp-area="" asp-controller="User" asp-action="EditInfo" asp-route-userName="@Model.UserName">Основная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="editImage">Картинка профиля</a>

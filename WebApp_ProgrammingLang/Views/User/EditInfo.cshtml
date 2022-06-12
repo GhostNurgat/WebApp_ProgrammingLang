@@ -1,22 +1,25 @@
-﻿@model WebApp_ProgrammingLang.Models.User
+﻿@model WebApp_ProgrammingLang.ViewModels.EditUserViewModel
 
-<form method="post" asp-controller="User" asp-action="EditInfo" asp-route-id="@Model.Id">
+<form method="post" asp-controller="User" asp-action="EditInfo" asp-route-editUserVM="@Model.UserName">
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Фамилия</label>
         <div class="col-sm-8">
             <input type="text" asp-for="Surname" class="form-control" />
+            <span class="text-danger" asp-validation-for="Surname"></span>
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Имя</label>
         <div class="col-sm-8">
             <input type="text" asp-for="Name" class="form-control" />
+            <span class="text-danger" asp-validation-for="Name"></span>
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Дата рождения</label>
         <div class="col-sm-8">
             <input type="date" asp-for="BirthDate" class="form-control" />
+            <span class="text-danger" asp-validation-for="BirthDate"></span>
         </div>
     </div>
     <div class="row mb-3">
@@ -25,5 +28,12 @@
             <textarea asp-for="About" class="form-control"></textarea>
         </div>
     </div>
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
