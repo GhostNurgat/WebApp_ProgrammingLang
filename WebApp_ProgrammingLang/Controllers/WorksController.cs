@@ -101,8 +101,11 @@ namespace WebApp_ProgrammingLang.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> WorkDetail(int id)
+        public async Task<IActionResult> WorkDetail(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             var work = await _context.Works.Include(w => w.User)
                 .Include(w => w.ProgrammingLanguage).FirstOrDefaultAsync(w => w.ID == id);
 

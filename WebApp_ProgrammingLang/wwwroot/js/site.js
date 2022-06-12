@@ -27,6 +27,16 @@ $(function () {
 
 $(function () {
     $.ajaxSetup({ cache: true });
+    $('#worksLink').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#profile').html(data);
+        })
+    })
+})
+
+$(function () {
+    $.ajaxSetup({ cache: true });
     $('#editInfo').click(function (e) {
         e.preventDefault();
         $.get(this.href, function (data) {

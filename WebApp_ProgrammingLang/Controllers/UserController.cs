@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApp_ProgrammingLang.Controllers
@@ -30,8 +31,12 @@ namespace WebApp_ProgrammingLang.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> Info(int id)
+        [Authorize]
+        public async Task<IActionResult> Info(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             User user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -40,8 +45,29 @@ namespace WebApp_ProgrammingLang.Controllers
             return PartialView(user);
         }
 
-        public async Task<IActionResult> Update(int id)
+        [Authorize]
+        public async Task<IActionResult> Works(int? id)
         {
+            if (id == null)
+                return NotFound();
+
+            User user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            var works = await _context.Works.Where(w => w.UserID == user.Id)
+                .Include(w => w.User).Include(w => w.ProgrammingLanguage).Include(w => w.Comments).ToListAsync();
+
+            return PartialView(works);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
             User user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -50,6 +76,7 @@ namespace WebApp_ProgrammingLang.Controllers
             return View(user);
         }
 
+        [Authorize]
         public async Task<IActionResult> EditInfo(int id)
         {
             var user = await _context.Users.FindAsync(id);
