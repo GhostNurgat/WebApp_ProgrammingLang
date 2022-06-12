@@ -7,6 +7,8 @@ namespace WebApp_ProgrammingLang.ViewModels
     public class WorksViewModel
     {
         public List<Work>? Works { get; set; }
+        public Work? Work { get; set; }
+        public List<WorkComment>? Comments { get; set; }
         public SelectList? Languages { get; set; }
         public string? Language { get; set; }
         public string? SeacrhWork { get; set; }

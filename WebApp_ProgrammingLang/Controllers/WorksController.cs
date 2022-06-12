@@ -48,6 +48,10 @@ namespace WebApp_ProgrammingLang.Controllers
                         works = works.Where(w => w.ProgrammingLanguage.Title == language)
                             .OrderByDescending(w => w.PublishDate).ToList();
                         break;
+                    default:
+                        works = works.Where(w => w.ProgrammingLanguage.Title == language)
+                            .ToList();
+                        break;
                 }
             }
 
@@ -105,9 +109,18 @@ namespace WebApp_ProgrammingLang.Controllers
             if (work == null)
                 return NotFound();
 
+            var comments = await _context.WorkComments.Where(c => c.WorkID == work.ID)
+                .Include(c => c.User).ToListAsync();
+
             ViewBag.Title = work.Title;
 
-            return View(work);
+            var workVM = new WorksViewModel
+            {
+                Work = work,
+                Comments = comments
+            };
+
+            return View(workVM);
         }
 
         [HttpGet]
