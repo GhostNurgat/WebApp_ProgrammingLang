@@ -49,7 +49,7 @@
                     <div class="ms-auto mt-3 mt-lg-1" style="font-family: 'Eco 2', sans-serif;">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="MyProfile" asp-route-userName="@User.Identity.Name">
+                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@User.Identity.Name">
                                 @User.Identity.Name
                             </a>
                         }

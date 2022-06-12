@@ -27,7 +27,7 @@
                             <h5 class="text-white">@t.Title</h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Автор: @t.User.UserName</h5>
+                            <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Автор: <a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@t.User.UserName">@t.User.UserName</a></h5>
                             <h6 class="card-subtitle" style="font-family: 'Comfortaa', cursive;">@t.DatePublish</h6>
                             <p class="card-text mb-3">Язык: @t.ProgrammingLanguage.Title</p>
                             <a class="btn btn-primary" href="#">Подробно</a>

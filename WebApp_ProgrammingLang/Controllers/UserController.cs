@@ -21,7 +21,7 @@ namespace WebApp_ProgrammingLang.Controllers
         private bool UserExists(int id) =>
             _context.Users.Any(u => u.Id == id);
 
-        public IActionResult MyProfile(string userName)
+        public IActionResult Profile(string userName)
         {
             User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
 

@@ -19,7 +19,7 @@
                 {
                     <img src="~/images/avatars/users/@Model.Work.User.UserImage" class="rounded-1 display-1 rounded-circle">
                 }
-                <h4 class="h2 display-1" style="font-family: 'Comfortaa', cursive; font-size: 5ch">@Model.Work.User.UserName</h4>
+                <h4 class="h2 display-1" style="font-family: 'Comfortaa', cursive; font-size: 5ch"><a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@Model.Work.User.UserName">@Model.Work.User.UserName</a></h4>
             </div>
         </div>
         <div class="row justify-content-md-center">
@@ -72,7 +72,7 @@
                     <div class="card" style="margin-bottom: 2em;">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a class="link-primary" href="#">
+                                <a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@c.User.UserName">
                                     @if (c.User.UserImage == null)
                                     {
                                         <img class="rounded-circle img-thumbnail" src="~/images/avatars/account_avatar.png">

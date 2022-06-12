@@ -19,10 +19,16 @@
             </div>
             <div class="mb-2 text-md-center">
                 <nav class="nav flex-column">
-                    <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="MyProfile" asp-route-userName="@User.Identity.Name">Информация</a>
-                    <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="Update" asp-route-id="@Model.Id">Редактировать</a>
+                    <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@User.Identity.Name">Информация</a>
+                    @if (Model.UserName == User.Identity.Name)
+                    {
+                        <a class="btn btn-outline-primary" style="margin: 10px;" asp-area="" asp-controller="User" asp-action="Update" asp-route-id="@Model.Id">Редактировать</a>
+                    }
                     <a class="btn btn-outline-primary" style="margin: 10px;" href="#">Задании</a>
-                    <a class="btn btn-outline-danger" style="margin: 10px;" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                    @if (Model.UserName == User.Identity.Name)
+                    {
+                        <a class="btn btn-outline-danger" style="margin: 10px;" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                    }
                 </nav>
             </div>
         </div>
