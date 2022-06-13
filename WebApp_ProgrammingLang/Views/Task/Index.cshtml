@@ -30,7 +30,7 @@
                             <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Автор: <a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@t.User.UserName">@t.User.UserName</a></h5>
                             <h6 class="card-subtitle" style="font-family: 'Comfortaa', cursive;">@t.DatePublish</h6>
                             <p class="card-text mb-3">Язык: @t.ProgrammingLanguage.Title</p>
-                            <a class="btn btn-primary" href="#">Подробно</a>
+                            <a class="btn btn-primary" asp-area="" asp-controller="Task" asp-action="Detail" asp-route-id="@t.ID">Подробно</a>
                         </div>
                     </div>
                 </div>

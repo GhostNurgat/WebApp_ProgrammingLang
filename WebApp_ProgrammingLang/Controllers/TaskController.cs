@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 namespace WebApp_ProgrammingLang.Controllers
 {
@@ -12,11 +14,13 @@ namespace WebApp_ProgrammingLang.Controllers
     {
         private readonly ILogger<TaskController> _logger;
         private readonly ProgLangContext _context;
+        private readonly IWebHostEnvironment appEnvironment;
 
-        public TaskController(ILogger<TaskController> logger, ProgLangContext context)
+        public TaskController(ILogger<TaskController> logger, ProgLangContext context, IWebHostEnvironment env)
         {
             _logger = logger;
             _context = context;
+            appEnvironment = env;
         }
 
         public async Task<IActionResult> Language(string searchLang, string typeString)
@@ -63,6 +67,37 @@ namespace WebApp_ProgrammingLang.Controllers
             };
 
             return View(taskVM);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var task = await _context.Tasks
+                .Include(t => t.User).Include(t => t.ProgrammingLanguage).FirstOrDefaultAsync(t => t.ID == id);
+
+            if (task == null)
+                return NotFound();
+
+            ViewBag.Title = task.Title;
+
+            return View(task);
+        }
+
+        [Authorize]
+        public IActionResult Download(string filename)
+        {
+            var TaskPath = Path.Combine(appEnvironment.WebRootPath, "files/tasks/file");
+            PhysicalFileProvider fileProvider = new PhysicalFileProvider(TaskPath);
+
+            var file = fileProvider.GetFileInfo(filename);
+
+            if (file.Exists)
+                return PhysicalFile(file.PhysicalPath, "application/octet-stream", file.Name);
+            else
+                return NotFound();
         }
     }
 }

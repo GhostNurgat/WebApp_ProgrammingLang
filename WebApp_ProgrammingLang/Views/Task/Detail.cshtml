@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = $"{ViewBag.Title}";
+}
+@model WebApp_ProgrammingLang.Models.Task
+
+<div class="pt-md-4 pt-lg-4 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-center">
+            <h3 class="h1 mb-3" style="font-family: 'Comfortaa', cursive;">@Model.Title</h3>
+            <h6 class="h5 mb-3 text-muted">
+                Автор: <a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@Model.User.UserName">@Model.User.UserName</a>
+            </h6>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-sm-8" style="margin-bottom: 2em;">
+                <div class="card border-primary border-2">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Описание</h5>
+                        <h6 class="card-subtitle text-muted" style="font-family: 'Comfortaa', cursive;">Дата: @Model.DatePublish   @Model.ProgrammingLanguage.Title</h6>
+                        <p class="mb-3">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4" style="margin-bottom: 2em;">
+                <div class="card border-primary border-2">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <h5 class="card-title">@Model.FileTask</h5>
+                        <h6 class="card-subtitle text-muted mb-3">@Model.DatePublish</h6>
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Task" asp-action="Download" asp-route-filename="@Model.FileTask">Скачать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
