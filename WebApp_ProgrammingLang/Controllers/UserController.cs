@@ -163,29 +163,38 @@ namespace WebApp_ProgrammingLang.Controllers
             return PartialView(user);
         }
 
-        public IActionResult Bid(string userName)
+        public async Task<IActionResult> Bid(string userName)
         {
-            User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-            ViewBag.User = user.Id;
-            return PartialView();
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user == null)
+                return NotFound();
+
+            var addBidVM = new AddBidViewModel
+            {
+                UserId = user.Id
+            };
+
+            return PartialView("Bid", addBidVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Bid(MentorBid newBid, string userName)
+        public async Task<IActionResult> Bid(AddBidViewModel model)
         {
-            User user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-            newBid.UserID = user.Id;
+            MentorBid newBid = new MentorBid
+            {
+                UserID = model.UserId,
+                Languages = model.Language,
+                Description = model.Description
+            };
 
             if (ModelState.IsValid)
             {
                 await _context.MentorBids.AddAsync(newBid);
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction("Index", "Home");
             }
 
-            return PartialView(newBid);
+            return PartialView("Bid" ,model);
         }
     }
 }

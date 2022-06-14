@@ -81,6 +81,15 @@ namespace WebApp_ProgrammingLang.Controllers
             if (task == null)
                 return NotFound();
 
+            string TextPath = Path.Combine(appEnvironment.WebRootPath, $"files/tasks/text/{task.FileText}");
+            string text = string.Empty;
+
+            using (StreamReader sr = new StreamReader(TextPath))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            ViewBag.Text = text;
             ViewBag.Title = task.Title;
 
             return View(task);

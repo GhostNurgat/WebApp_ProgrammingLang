@@ -1,48 +1,51 @@
-﻿@model WebApp_ProgrammingLang.Models.MentorBid
+﻿@model WebApp_ProgrammingLang.ViewModels.AddBidViewModel
 
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modalDialog" style="font-family: 'Comfortaa', cursive;">Заявка</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <p class="mb-2" style="font-family: 'Eco 2', sans-serif;">Для отправки заявки, нужно сначало <a asp-area="" asp-controller="Account" asp-action="Login">войти</a> в Систему.</p>
-            }
-            else
-            {
-                <form method="post" asp-controller="User" asp-action="Bid">
-                    <div class="row mb-3">
-                        <label class="col-form-label col-sm-4">Укажите язык программирование</label>
-                        <div class="col-sm-12">
-                            <input type="text" asp-for="@Model.Languages" class="form-control" placeholder="Укажите только доступные языки">
-                            <span class="text-danger" asp-validation-for="@Model.Languages"></span>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-form-label col-sm-4">Расскажите, почему вы хотите стать преподавателем?</label>
-                        <div class="col-sm-12">
-                            <textarea asp-for="@Model.Description" class="form-control"></textarea>
-                            <span class="text-danger" asp-validation-for="@Model.Description"></span>
-                        </div>
-                    </div>
-                </form>
-            }
-        </div>
-        <div class="modal-footer">
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-            }
-            else
-            {
-                <form method="post" asp-controller="User" asp-action="Bid" asp-route-userName="@ViewBag.User">
-                    <button type="submit" class="btn btn-primary">Отправить</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-            }
+<div class="modal fade" aria-hidden="true" aria-labelledby="modalDialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDialog" style="font-family: 'Comfortaa', cursive;">Заявка</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <p class="mb-2" style="font-family: 'Eco 2', sans-serif;">Для отправки заявки, нужно сначало <a asp-area="" asp-controller="Account" asp-action="Login">войти</a> в Систему.</p>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="User" asp-action="Bid" asp-route-model="@Model">
+                            <input type="hidden" name="IsValid" value="@ViewData.ModelState.IsValid.ToString()">
+                            <div class="row mb-3">
+                                <label class="col-form-label col-sm-4">Укажите язык программирование</label>
+                                <div class="col-sm-12">
+                                    <input type="text" asp-for="Language" class="form-control" placeholder="Укажите только доступные языки">
+                                    <span class="text-danger" asp-validation-for="Language"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-form-label col-sm-4">Расскажите, почему вы хотите стать преподавателем?</label>
+                                <div class="col-sm-12">
+                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <span class="text-danger" asp-validation-for="Description"></span>
+                                </div>
+                           </div>
+                        </form>
+                    }
+                </div>
+                <div class="modal-footer">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-primary" data-save="modal">Отправить</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    }
+                </div>
+           </div>
         </div>
     </div>
 </div>
