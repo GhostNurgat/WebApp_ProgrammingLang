@@ -75,11 +75,11 @@
                                 <a class="link-primary" asp-area="" asp-controller="User" asp-action="Profile" asp-route-userName="@c.User.UserName">
                                     @if (c.User.UserImage == null)
                                     {
-                                        <img class="rounded-circle img-thumbnail" src="~/images/avatars/account_avatar.png">
+                                        <img class="rounded-circle img-thumbnail" src="~/images/avatars/account_avatar.png" style="width: 45px; height: 45px;">
                                     }
                                     else
                                     {
-                                        <img class="rounded-circle img-thumbnail" src="~/images/avatars/users/@c.User.UserImage">
+                                        <img class="rounded-circle img-thumbnail" src="~/images/avatars/users/@c.User.UserImage" style="width: 45px; height: 45px;">
                                     }
                                     @c.User.UserName
                                 </a>

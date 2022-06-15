@@ -4,30 +4,37 @@
 // Write your JavaScript code.
 
 $(function () {
+    $.ajaxSetup({ cache: false })
     let placeholderElement = $('#placeholder');
     $('#modalLink').click(function (e) {
         e.preventDefault();
         $.get(this.href).done(function (data) {
             placeholderElement.html(data);
             placeholderElement.find('.modal').modal('show');
+            bindForm(this);
         });
     });
-    placeholderElement.on('click', '[data-save="modal"]', function (e) {
+});
 
-        let actionUrl = $(this.form).attr('action');
-        let dataToSend = $(this.form).serialize();
+$(function bindForm() {
+    let placeholderElement = $('#placeholder');
+    placeholderElement.on('sumbit', '[data-save="modal"]', function (e) {
+        e.preventDefault();
+
+        var actionUrl = $(this.form).attr('action');
+        var dataToSend = $(this.form).serialize();
 
         $.post(actionUrl, dataToSend).done(function (data) {
             let newBody = $('.modal-body', data);
             placeholderElement.find('.modal-body').replaceWith(newBody);
 
-            let isValid = newBody.find('[name="IsValid"]').val() == "True";
+            var isValid = newBody.find('[name="IsValid"]').val() == 'True';
             if (isValid) {
-                placeholderElement.find('.modal').modal("hide");
+                placeholderElement.find('.modal').modal('hide');
             }
         });
     });
-});
+})
 
 $(function () {
     $.ajaxSetup({ cache: true });
@@ -56,8 +63,8 @@ $(function () {
         e.preventDefault();
         $.get(this.href, function (data) {
             $('#cardBody').html(data);
-        })
-    })
+        });
+    });
 })
 
 $(function () {

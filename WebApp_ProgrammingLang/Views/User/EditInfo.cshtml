@@ -1,6 +1,7 @@
 ﻿@model WebApp_ProgrammingLang.ViewModels.EditUserViewModel
 
-<form method="post" asp-controller="User" asp-action="EditInfo" asp-route-editUserVM="@Model.UserName">
+<form method="post" asp-controller="User" asp-action="EditInfo" asp-route-editUserVM="@Model">
+    <input type="hidden" name="IsValid" value="@ViewData.ModelState.IsValid.ToString()" />
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Фамилия</label>
         <div class="col-sm-8">
@@ -29,7 +30,7 @@
         </div>
     </div>
     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button type="submit" class="btn btn-primary" data-bs-save="user">Сохранить</button>
 </form>
 
 @section Scripts {
