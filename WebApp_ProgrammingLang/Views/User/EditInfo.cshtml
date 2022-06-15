@@ -1,7 +1,7 @@
 ﻿@model WebApp_ProgrammingLang.ViewModels.EditUserViewModel
 
-<form method="post" asp-controller="User" asp-action="EditInfo" asp-route-editUserVM="@Model">
-    <input type="hidden" name="IsValid" value="@ViewData.ModelState.IsValid.ToString()" />
+<form method="post" asp-controller="User" asp-action="EditInfo">
+    <input type="hidden" asp-for="UserName" value="@User.Identity.Name" />
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Фамилия</label>
         <div class="col-sm-8">

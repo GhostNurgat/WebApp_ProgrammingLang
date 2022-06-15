@@ -179,21 +179,24 @@ namespace WebApp_ProgrammingLang.Controllers
             if (work == null)
                 return NotFound();
 
-            return PartialView(work);
+            return View(work);
         }
 
-        [HttpDelete]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var work = await _context.Works.FindAsync(id);
-            _context.Works.Remove(work);
+            if (work == null)
+                return NotFound();
 
             try
             {
+                _context.Works.Remove(work);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Works");
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException)
             {
                 throw;
             }

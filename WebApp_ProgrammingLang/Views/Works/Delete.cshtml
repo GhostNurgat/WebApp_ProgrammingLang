@@ -1,17 +1,21 @@
 ﻿@model WebApp_ProgrammingLang.Models.Work
+@{
+    ViewData["Title"] = "Вы уверены?";
+}
 
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="modDeleteDialog" style="font-family: 'Comfortaa', cursive;">Удаление работы</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body" style="font-family: 'Eco 2', sans-serif;">
-        <p class="mb-3 text-md-start">
-            Вы уверены, что вы хотите удалить работу "@Model.Title"?
-        </p>
-    </div>
-    <div class="modal-footer">
-        <a class="btn btn-danger" asp-area="" asp-controller="Works" asp-action="DeleteConfirmed" asp-route-id="@Model.ID">Да</a>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Нет</button>
+<div class="container-fluid">
+    <div class="align-content-md-center">
+        <div class="card border-primary border-3">
+            <div class="card-header" style="font-family: 'Comfortaa', cursive;">
+                <h5 class="h3 mb-3">Удаление работы</h5>
+            </div>
+            <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                <p class="card-text mb-4">Вы уверены, что вы хотите удалить работу "@Model.Title"</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-danger" asp-controller="Works" asp-action="DeleteConfirmed" asp-route-id="@Model.ID">Да</a>
+                <a class="btn btn-primary" asp-controller="Works" asp-action="WorkDetail" asp-route-id="@Model.ID">Нет</a>
+            </div>
+        </div>
     </div>
 </div>

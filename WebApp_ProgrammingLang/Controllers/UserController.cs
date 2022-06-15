@@ -117,7 +117,7 @@ namespace WebApp_ProgrammingLang.Controllers
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
-                        return RedirectToAction("Profile", "User", user.Id);
+                        return RedirectToAction("Index", "Home");
                     else
                         foreach (var error in result.Errors)
                             ModelState.AddModelError(string.Empty, error.Description);
