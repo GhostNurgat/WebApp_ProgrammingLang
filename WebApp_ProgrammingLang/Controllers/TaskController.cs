@@ -108,5 +108,68 @@ namespace WebApp_ProgrammingLang.Controllers
             else
                 return NotFound();
         }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpGet]
+        public async Task<IActionResult> NewTask()
+        {
+            ViewBag.Languages = new SelectList(await _context.ProgrammingLanguages.ToListAsync(), "ID", "Title");
+            return View();
+        }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> NewTask(EditTaskViewModel model, IFormFile uploadFileText, IFormFile uploadFile, string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user == null)
+                return NotFound();
+
+            Task task = new Task
+            {
+                Title = model.Title,
+                UserID = user.Id,
+                LanguageID = model.LanguageID,
+                DatePublish = DateTime.Now,
+                ProgrammingLanguageID = model.LanguageID
+            };
+
+            if (uploadFileText != null)
+            {
+                string path = "/files/tasks/text/" + uploadFileText.FileName;
+                using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadFileText.CopyToAsync(fileStream);
+                }
+
+                model.FileText = uploadFileText.FileName;
+            }
+
+            if (uploadFile != null)
+            {
+                string path = "/files/tasks/file/" + uploadFile.FileName;
+                using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadFile.CopyToAsync(fileStream);
+                }
+
+                model.Filename = uploadFile.FileName;
+            }
+
+            task.FileText = model.FileText;
+            task.FileTask = model.Filename;
+
+            try
+            {
+                await _context.Tasks.AddAsync(task);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+        }
     }
 }

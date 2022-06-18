@@ -1,0 +1,59 @@
+﻿@model WebApp_ProgrammingLang.ViewModels.EditTaskViewModel
+@{
+    ViewData["Title"] = "Новое задание";
+}
+
+<div class="pt-md-4 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-start">
+            <h2 class="h1" style="font-family: 'Comfortaa', cursive;">Новое задание</h2>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <form method="post" asp-antiforgery="true" asp-controller="Task" asp-action="NewTask" asp-route-userName="@User.Identity.Name" enctype="multipart/form-data">
+                <div class="card border-primary border-3">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Название</label>
+                            <div class="col-sm-12">
+                                <input type="text" asp-for="Title" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Title"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Язык программирование</label>
+                            <div class="col-sm-12">
+                                <select class="form-select" asp-for="LanguageID" asp-items="@ViewBag.Languages"></select>
+                                <span class="text-danger" asp-validation-for="LanguageID"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Файл текста задании</label>
+                            <div class="col-sm-12">
+                                <input type="file" asp-for="FileText" class="form-control" name="uploadFileText" />
+                                <label class="form-label text-muted mb-0">Файлы: .html, .md и т.д.</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Архив с проектом и тестом</label>
+                            <div class="col-sm-12">
+                                <input type="file" asp-for="Filename" class="form-control" name="uploadFile" />
+                                <label class="form-label text-muted mb-0">Архив .zip, .rar, .7z</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary" value="Сохранить" />
+                        <a class="btn btn-secondary" asp-area="" asp-controller="Mentors" asp-action="Index">Отмена</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

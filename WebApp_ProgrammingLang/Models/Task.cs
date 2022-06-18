@@ -29,6 +29,8 @@
         [StringLength(100)]
         public string FileTask { get; set; }
 
+        public int ProgrammingLanguageID { get; set; }
+
 
         public virtual User User { get; set; }
         public virtual ProgrammingLanguage ProgrammingLanguage { get; set; }
