@@ -1,16 +1,20 @@
 ﻿@model WebApp_ProgrammingLang.ViewModels.EditTaskViewModel
 @{
-    ViewData["Title"] = "Новое задание";
+    ViewData["Title"] = "Редактировать задание";
 }
 
 <div class="pt-md-4 pt-lg-2 pt-2">
     <div class="container-md">
         <div class="row justify-content-md-start">
-            <h2 class="h1" style="font-family: 'Comfortaa', cursive;">Новое задание</h2>
+            <h2 class="h1" style="font-family: 'Comfortaa', cursive;">Редактирование задании</h2>
         </div>
 
         <div class="row justify-content-md-center">
-            <form method="post" asp-antiforgery="true" asp-controller="Task" asp-action="NewTask" asp-route-userName="@User.Identity.Name" enctype="multipart/form-data">
+            <form method="post" asp-controller="Task" asp-action="EditTask" asp-route-id="@ViewBag.ID">
+                <input type="hidden" class="form-control" asp-for="FileText" />
+                <input type="hidden" class="form-control" asp-for="Filename" />
+                <input type="hidden" class="form-control" asp-for="UserID" />
+                <input type="hidden" class="form-control" asp-for="PublishDate" />
                 <div class="card border-primary border-3">
                     <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
                         <div class="row">
@@ -21,14 +25,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-form-label col-sm-4">Язык программирование</label>
+                            <label class="col-form-label col-sm-12">Язык программирование</label>
                             <div class="col-sm-12">
-                                <select class="form-select" asp-for="LanguageID" asp-items="@ViewBag.Languages"></select>
+                                <select asp-for="LanguageID" asp-items="ViewBag.Languages" class="form-select"></select>
                                 <span class="text-danger" asp-validation-for="LanguageID"></span>
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-form-label col-sm-4">Файл текста задании</label>
+                            <label class="col-form-label col-sm-4">Файл с описанием задании</label>
                             <div class="col-sm-12">
                                 <input type="file" class="form-control" name="uploadFileText" />
                                 <label class="form-label text-muted mb-0">Файлы: .html, .md и т.д.</label>
@@ -44,7 +48,7 @@
                     </div>
                     <div class="card-footer">
                         <input type="submit" class="btn btn-primary" value="Сохранить" />
-                        <a class="btn btn-secondary" asp-area="" asp-controller="Mentors" asp-action="Index">Отмена</a>
+                        <a class="btn btn-secondary" asp-controller="Mentors" asp-action="Index">Отмена</a>
                     </div>
                 </div>
             </form>

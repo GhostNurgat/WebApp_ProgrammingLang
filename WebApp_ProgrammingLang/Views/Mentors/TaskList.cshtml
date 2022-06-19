@@ -34,9 +34,9 @@
                 <h5 class="card-title" style="font-family: 'Comfortaa', cursive;">Автор: @t.User.UserName</h5>
                 <h6 class="card-subtitle" style="font-family: 'Comfortaa', cursive;">Дата: @t.DatePublish</h6>
                 <p class="card-text mb-1">Язык: @t.ProgrammingLanguage.Title</p>
-                <a class="btn btn-primary" href="#">Подробно</a>
-                <a class="btn btnalert-primary" href="#">Редактировать</a>
-                <a class="btn btnbtn-outline-danger" href="#">Удалить</a>
+                <a class="btn btn-primary" asp-controller="Task" asp-action="Detail" asp-route-id="@t.ID">Подробно</a>
+                <a class="btn btn-primary" asp-controller="Task" asp-action="EditTask" asp-route-id="@t.ID">Редактировать</a>
+                <a class="btn btn-outline-danger" href="#">Удалить</a>
             </div>
         </div>
     }

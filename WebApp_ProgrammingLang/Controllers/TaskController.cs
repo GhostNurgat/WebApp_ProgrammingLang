@@ -171,5 +171,115 @@ namespace WebApp_ProgrammingLang.Controllers
                 throw;
             }
         }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpGet]
+        public async Task<IActionResult> EditTask(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var task = await _context.Tasks.FindAsync(id);
+            if (task == null)
+                return NotFound();
+
+            var editTaskVM = new EditTaskViewModel
+            {
+                Title = task.Title,
+                LanguageID = task.ProgrammingLanguageID,
+                UserID = task.UserID,
+                FileText = task.FileText,
+                Filename = task.FileTask,
+                PublishDate = task.DatePublish
+            };
+
+            ViewBag.Languages = new SelectList(await _context.ProgrammingLanguages.ToListAsync(), "ID", "Title");
+            ViewBag.ID = task.ID;
+
+            return View(editTaskVM);
+        }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTask(int id, EditTaskViewModel model, IFormFile uploadFileText, IFormFile uploadFile)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (uploadFileText != null)
+            {
+                string path = "/files/tasks/text/";
+
+                if (model.FileText == uploadFileText.FileName)
+                {
+                    path += uploadFileText.FileName;
+                    using (var fs = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadFileText.CopyToAsync(fs);
+                    }
+                }
+                else
+                {
+                    path += uploadFileText.FileName;
+                    string oldPath = Path.Combine(appEnvironment.WebRootPath, $"files/tasks/text/{model.FileText}");
+
+                    System.IO.File.Delete(oldPath);
+
+                    using (var fs = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadFileText.CopyToAsync(fs);
+                    }
+
+                    model.FileText = uploadFileText.FileName;
+                }
+            }
+
+            if (uploadFile != null)
+            {
+                string path = "/files/tasks/file/";
+
+                if (uploadFile.FileName == model.Filename)
+                {
+                    path += uploadFile.FileName;
+                    using (var fs = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadFile.CopyToAsync(fs);
+                    }
+                }
+                else
+                {
+                    string oldPath = Path.Combine(appEnvironment.WebRootPath, $"files/tasks/file/{model.Filename}");
+                    path += uploadFile.FileName;
+
+                    System.IO.File.Delete(oldPath);
+
+                    using (var fs = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadFile.CopyToAsync(fs);
+                    }
+
+                    model.Filename = uploadFile.FileName;
+                }
+            }
+
+            task.Title = model.Title;
+            task.LanguageID = model.LanguageID;
+            task.ProgrammingLanguageID = model.LanguageID;
+            task.UserID = model.UserID;
+            task.DatePublish = (DateTime)model.PublishDate;
+            task.FileText = model.FileText;
+            task.FileTask = model.Filename;
+
+            try
+            {
+                _context.Tasks.Update(task);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+        }
     }
 }
