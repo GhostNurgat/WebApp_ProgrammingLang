@@ -335,5 +335,52 @@ namespace WebApp_ProgrammingLang.Controllers
                 throw;
             }
         }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpGet]
+        public async Task<IActionResult> ComfirmDelete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Task task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+                return NotFound();
+
+            return View(task);
+        }
+
+        [Authorize(Roles = "Преподаватель-редактор")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.ID == id);
+
+            if (task == null)
+                return NotFound();
+
+            if (!WorkExists(task.ID))
+            {
+                try
+                {
+                    _context.Tasks.Remove(task);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Mentors");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            else
+                return View("ErrorPage");
+        }
+
+        private bool WorkExists(int id) =>
+            _context.TaskWorks.Any(w => w.TaskID == id);
     }
 }

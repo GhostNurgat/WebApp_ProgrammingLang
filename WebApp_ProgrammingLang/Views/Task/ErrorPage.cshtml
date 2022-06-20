@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Ошибка";
+}
+
+<div class="pt-md-4 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="card border-primary border-2">
+            <div class="card-header bg-danger" style="font-family: 'Comfortaa', cursive;">
+                <h5 class="h3 text-white">Ошибка удалении</h5>
+            </div>
+            <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                <p class="card-text mb-2">Невозможно удалить задание, т.к. у данного задания есть решения.</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary" asp-controller="Mentors" asp-action="Index">ОК</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 ﻿@model WebApp_ProgrammingLang.ViewModels.TaskViewModel
 
+<div id="modal-placeholder"></div>
+
 <form method="get" asp-controller="Mentors" asp-action="TaskList" asp-route-userName="@User.Identity.Name">
     <div class="row" style="margin-bottom: 1em;">
         <div class="input-group">
@@ -36,7 +38,7 @@
                 <p class="card-text mb-1">Язык: @t.ProgrammingLanguage.Title</p>
                 <a class="btn btn-primary" asp-controller="Task" asp-action="Detail" asp-route-id="@t.ID">Подробно</a>
                 <a class="btn btn-primary" asp-controller="Task" asp-action="EditTask" asp-route-id="@t.ID">Редактировать</a>
-                <a class="btn btn-outline-danger" href="#">Удалить</a>
+                <a class="btn btn-outline-danger" asp-controller="Task" asp-action="ComfirmDelete" asp-route-id="@t.ID">Удалить</a>
             </div>
         </div>
     }

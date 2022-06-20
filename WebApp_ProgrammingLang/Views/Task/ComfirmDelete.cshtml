@@ -1,0 +1,23 @@
+﻿@model WebApp_ProgrammingLang.Models.Task
+@{
+    ViewData["Title"] = "Подтверждение";
+}
+
+<div class="pt-md-4 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="card border-primary border-2">
+            <div class="card-header bg-primary" style="font-family: 'Comfortaa', cursive;">
+                <h5 class="h3 text-white">Удалить задание</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text mb-2">Вы уверены, что вы хотите удалить задание "@Model.Title"? Убедитесь, что данное задание не было решении.</p>
+            </div>
+            <div class="card-footer">
+                <form method="post" asp-controller="Task" asp-action="Delete" asp-route-id="@Model.ID">
+                    <input type="submit" class="btn btn-danger" value="Подтвердить" />
+                    <a class="btn btn-primary" asp-controller="Mentors" asp-action="Index">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
