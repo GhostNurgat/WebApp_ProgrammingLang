@@ -1,0 +1,50 @@
+﻿@model WebApp_ProgrammingLang.ViewModels.StudentsWorkViewModel
+
+<div class="pt-md-4 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-center" style="margin-bottom: 2em;">
+            <form method="get" asp-area="" asp-controller="Mentors" asp-action="WorksList">
+                <div class="input-group">
+                    <input type="search" asp-for="UserName" class="form-control" name="searchUser" placeholder="Поиск пользователя" />
+                    <button type="submit" class="btn btn-outline-success">
+                        <img src="~/lib/bootstrap-icons-1.8.3/search.svg" />
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row justify-content-md-center">
+            @foreach (var w in Model.TaskWorks)
+            {
+                <div class="card border-primary border-2" style="margin-bottom: 2ch;">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <h5 class="card-title text-primary" style="font-family: 'Comfortaa', cursive;">Студент: <a class="link-primary" asp-controller="User" asp-action="Profile" asp-route-userName="@w.User.UserName">@w.User.UserName</a></h5>
+                        <h6 class="card-subtitle text-muted">Дата: @w.DateLoad   Задание: @w.Task.Title</h6>
+                        <p class="text-muted mb-0">Завершёное:
+                            @if (w.IsCompleted)
+                            {
+                                <partial>Да</partial>
+                            }
+                            else
+                            {
+                                <partial>Нет</partial>
+                            }
+                        </p>
+                        @if (w.Message == null)
+                        {
+                            <p class="card-text text-muted mb-3">Нет сообщении</p>
+                        }
+                        else
+                        {
+                            <p class="card-text mb-3">@w.Message</p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Mentors" asp-action="DownloadWork" asp-route-filename="@w.Filename">Скачать работу</a>
+                        <a class="btn btn-primary" href="#">Отправить сообщение</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -65,3 +65,13 @@ $(function () {
         })
     })
 })
+
+$(function () {
+    $.ajaxSetup({ cache: true });
+    $('#worksList').click(function (e) {
+        e.preventDefault();
+        $.get(this.href, function (data) {
+            $('#page').html(data);
+        })
+    })
+})
