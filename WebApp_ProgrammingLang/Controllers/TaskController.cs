@@ -365,6 +365,12 @@ namespace WebApp_ProgrammingLang.Controllers
 
             if (!WorkExists(task.ID))
             {
+                string pathText = Path.Combine(appEnvironment.WebRootPath, $"files/tasks/text/{task.FileText}");
+                string pathFile = Path.Combine(appEnvironment.WebRootPath, $"files/tasks/file/{task.FileTask}");
+
+                System.IO.File.Delete(pathFile);
+                System.IO.File.Delete(pathText);
+
                 try
                 {
                     _context.Tasks.Remove(task);
