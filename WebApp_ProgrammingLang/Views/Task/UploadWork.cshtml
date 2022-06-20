@@ -1,0 +1,50 @@
+﻿@model WebApp_ProgrammingLang.ViewModels.TaskWorkViewModel
+@{
+    ViewData["Title"] = "Загрузить решение";
+}
+
+<div class="pt-md-4 pt-lg-2 pt-2">
+    <div class="container-md">
+        <div class="row justify-content-md-start">
+            <h2 class="h1 text-primary" style="font-family: 'Comfortaa', cursive;">Загрузить работу</h2>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <form method="post" asp-antiforgery="true" asp-controller="Task" asp-action="UploadWork" asp-route-id="@ViewBag.Task.ID" asp-route-userName="@User.Identity.Name">
+                <div class="card border-primary border-3">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Файл решении</label>
+                            <div class="col-sm-12">
+                                <input type="file" class="form-control" name="uploadFile" />
+                                <label class="form-label text-muted mb-0">Архив .zip, .rar и .7z</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="form-label">Завершёное?</label>
+                                <input type="checkbox" asp-for="IsComplited" class="form-check" checked="true" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-form-label col-sm-4">Сообщение</label>
+                            <div class="col-sm-12">
+                                <textarea asp-for="Message" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary" value="Отправить" />
+                        <a class="btn btn-secondary" asp-controller="Task" asp-action="Detail" asp-route-id="@ViewBag.Task.ID">Отмена</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

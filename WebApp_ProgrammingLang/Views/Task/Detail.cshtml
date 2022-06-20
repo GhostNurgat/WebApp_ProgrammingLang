@@ -33,6 +33,13 @@
                         <a class="btn btn-outline-primary" asp-area="" asp-controller="Task" asp-action="Download" asp-route-filename="@Model.FileTask">Скачать</a>
                     </div>
                 </div>
+
+                <div class="card border-primary border-2" style="margin-top: 2em;">
+                    <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
+                        <p class="card-text mb-4">Загружайте ваши решения</p>
+                        <a class="btn btn-primary" asp-controller="Task" asp-action="UploadWork" asp-route-id="@Model.ID" asp-route-userName="@User.Identity.Name">Загрузить</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

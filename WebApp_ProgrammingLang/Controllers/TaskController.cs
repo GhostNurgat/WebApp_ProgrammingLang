@@ -109,6 +109,60 @@ namespace WebApp_ProgrammingLang.Controllers
                 return NotFound();
         }
 
+        [Authorize]
+        public async Task<IActionResult> UploadWork(int id, string userName)
+        {
+            ViewBag.Task = await _context.Tasks.FindAsync(id);
+            ViewBag.User = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadWork(TaskWorkViewModel model, int id, string userName, IFormFile uploadFile)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            model.TaskID = task.ID;
+            model.UserID = user.Id;
+
+            var taskWork = new TaskWork
+            {
+                TaskID = task.ID,
+                UserID = user.Id,
+                DateLoad = DateTime.Now
+            };
+
+            if (uploadFile != null)
+            {
+                string path = "/files/tasks/works/" + uploadFile.FileName;
+                using (var fs = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadFile.CopyToAsync(fs);
+                }
+
+                model.Filename = uploadFile.FileName;
+            }
+
+            taskWork.IsCompleted = model.IsComplited;
+            taskWork.Filename = model.Filename;
+            taskWork.Message = model.Message;
+
+            try
+            {
+                await _context.TaskWorks.AddAsync(taskWork);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Detail", "Task", task.ID);
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+        }
+
         [Authorize(Roles = "Преподаватель-редактор")]
         [HttpGet]
         public async Task<IActionResult> NewTask()
