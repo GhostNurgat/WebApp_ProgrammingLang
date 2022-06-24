@@ -155,7 +155,7 @@ namespace WebApp_ProgrammingLang.Controllers
             {
                 await _context.TaskWorks.AddAsync(taskWork);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Detail", "Task", task.ID);
+                return Redirect("/Task/Detail/" + task.ID);
             }
             catch (DbUpdateException)
             {

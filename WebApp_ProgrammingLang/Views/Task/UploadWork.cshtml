@@ -10,7 +10,7 @@
         </div>
 
         <div class="row justify-content-md-center">
-            <form method="post" asp-antiforgery="true" asp-controller="Task" asp-action="UploadWork" asp-route-id="@ViewBag.Task.ID" asp-route-userName="@User.Identity.Name">
+            <form method="post" enctype="multipart/form-data" asp-antiforgery="true" asp-controller="Task" asp-action="UploadWork" asp-route-id="@ViewBag.Task.ID" asp-route-userName="@User.Identity.Name">
                 <div class="card border-primary border-3">
                     <div class="card-body" style="font-family: 'Eco 2', sans-serif;">
                         <div class="row">

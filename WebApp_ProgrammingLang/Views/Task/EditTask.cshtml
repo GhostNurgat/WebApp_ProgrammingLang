@@ -10,7 +10,7 @@
         </div>
 
         <div class="row justify-content-md-center">
-            <form method="post" asp-controller="Task" asp-action="EditTask" asp-route-id="@ViewBag.ID">
+            <form method="post" enctype="multipart/form-data" asp-controller="Task" asp-action="EditTask" asp-route-id="@ViewBag.ID">
                 <input type="hidden" class="form-control" asp-for="FileText" />
                 <input type="hidden" class="form-control" asp-for="Filename" />
                 <input type="hidden" class="form-control" asp-for="UserID" />

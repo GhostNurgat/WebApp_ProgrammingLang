@@ -155,7 +155,7 @@ namespace WebApp_ProgrammingLang.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToAction("WorkDetail", "Works", work.ID);
+                return Redirect("/Works/WorkDetail/" + work.ID);
             }
             catch (DbUpdateConcurrencyException)
             {
